@@ -30,6 +30,7 @@ extensionLevel = raw_datas_without_label.shape[1] - 1
 F1 = eif_old_class.iForest(raw_datas_without_label, ntrees=number_of_trees, sample_size=subsample_size,
                            ExtensionLevel=extensionLevel)
 
+
 # compute score for testing data
 testing_data = raw_datas  # here we use traning data to see their score, can be replaced by test set
 S, DataPointsResult = F1.compute_paths_with_labeled_input(X_in=testing_data)
@@ -54,6 +55,9 @@ a_variances = []
 a_std_devs = []
 a_skws = []
 a_score = []
+a_means_normalised = []
+a_std_devs_normalised = []
+
 if Anomalys_by_label != None:
     print("Number of Anomaly:" + str(len(Anomalys_by_label)))
 

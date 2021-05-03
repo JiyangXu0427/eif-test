@@ -1,0 +1,28 @@
+Undersample number of anomaly: 534
+Undersample number of normal: 1600
+              precision    recall  f1-score   support
+
+      Normal       0.78      0.93      0.85       403
+    Anormaly       0.50      0.21      0.30       131
+
+    accuracy                           0.75       534
+   macro avg       0.64      0.57      0.58       534
+weighted avg       0.71      0.75      0.72       534
+
+ROC_AUC_Score: 0.5721307749133407
+                           Logit Regression Results                           
+==============================================================================
+Dep. Variable:                  label   No. Observations:                 2134
+Model:                          Logit   Df Residuals:                     2131
+Method:                           MLE   Df Model:                            2
+Date:                Mon, 03 May 2021   Pseudo R-squ.:                 -0.1341
+Time:                        23:27:28   Log-Likelihood:                -1361.6
+converged:                       True   LL-Null:                       -1200.6
+Covariance Type:            nonrobust   LLR p-value:                     1.000
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+x1            -1.1729      0.172     -6.800      0.000      -1.511      -0.835
+x2             0.4023      0.079      5.109      0.000       0.248       0.557
+x3            -0.9274      0.145     -6.403      0.000      -1.211      -0.644
+==============================================================================

@@ -136,13 +136,15 @@ class iForest(object):
                 LengthDistributionForOnePoint.append(lengthForATree)
                 h_temp += lengthForATree
             Eh = h_temp / self.ntrees  # Average of path length travelled by the point in all trees.
-            score = 2.0 ** (-Eh / self.c)  # Anomaly Score
+            cn = self.c
+            normalised_mean = Eh / cn
+            score = 2.0 ** (-normalised_mean)  # Anomaly Score
             S[i] = score
 
             dataPoint = {"list_num": i,"score": score,"length": LengthDistributionForOnePoint}
             DataPointsResult.append(dataPoint)
             print("score" + str(i) + "done")
-        return S, DataPointsResult
+        return S, DataPointsResult, cn
 
     def compute_paths_with_labeled_input(self, X_in=None):
         """

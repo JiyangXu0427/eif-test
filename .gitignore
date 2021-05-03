@@ -1,0 +1,33 @@
+.ipynb_checkpoints*
+figures/images/
+figures/other_files/
+figures/Makefile
+figures/joss-logo.png
+figures/latex.template
+*.pyc
+build/
+dist/
+eif.egg-info/
+_eif.cpp
+*.so
+cleanup.sh
+
+Annthyroid-Mat-1000-3600-fullyExtended-overlay 10 lines-anomaly by label-unsmothed/
+
+Cardio-Mat-1000-916-fullyExtended-overlay 10 lines-class by label-unsmothed/
+
+Cardio-Origin-1000-1063-fullyExtended-overlay 10 lines-class by label-unsmothed/
+
+figures/
+
+Mammo-Origin-1000-5592-fullyExtended-overlay 10 lines-anomaly by label-unsmothed/
+
+Mnist-Mat-1000-3802-fullyExtended-overlay 10 lines-anomaly by label-unsmothed/
+
+Satellite-Mat-1000-3218-fullyExtended-overlay 10 lines-anomaly by label-unsmothed/
+
+Shuttle-Mat-1000-24549-fullyExtended-overlay 10 lines-anomaly by label-unsmothed/
+
+Thyroid-Mat-1000-1886-fullyExtended-overlay 10 lines-anomaly by label-unsmothed/
+
+Notebooks/

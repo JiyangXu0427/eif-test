@@ -24,8 +24,8 @@ y_data = np.array(data["y"])
 x_y_data = np.concatenate((x_data, y_data), axis=1)
 raw_datas = x_y_data
 raw_datas_without_label = x_data
-# print(raw_datas[0])
-# print(raw_datas_without_label[0])
+print(raw_datas[0])
+print(raw_datas_without_label[0])
 
 # train the forest
 number_of_trees = 1000

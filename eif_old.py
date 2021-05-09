@@ -6,10 +6,9 @@ Our method allows for the slicing of the data to be done using hyperplanes with 
 """
 
 __author__ = 'Matias Carrasco Kind & Sahand Hariri'
-
+import pandas as pd
 import numpy as np
 import random as rn
-
 
 
 def c_factor(n):
@@ -124,27 +123,53 @@ class iForest(object):
         if X_in is None:
             X_in = self.X
         S = np.zeros(len(X_in))
-
-        #A list to be returned, used to contain path length distribution
-        DataPointsResult = []
-
         for i in range(len(X_in)):
-            LengthDistributionForOnePoint = []
             h_temp = 0
             for j in range(self.ntrees):
-                lengthForATree = PathFactor(X_in[i], self.Trees[j]).path * 1.0  # Compute path length for each point
-                LengthDistributionForOnePoint.append(lengthForATree)
-                h_temp += lengthForATree
+                h_temp += PathFactor(X_in[i], self.Trees[j]).path * 1.0  # Compute path length for each point
             Eh = h_temp / self.ntrees  # Average of path length travelled by the point in all trees.
-            cn = self.c
-            normalised_mean = Eh / cn
-            score = 2.0 ** (-normalised_mean)  # Anomaly Score
-            S[i] = score
+            S[i] = 2.0 ** (-Eh / self.c)  # Anomaly Score
+        return S
 
-            dataPoint = {"list_num": i,"score": score,"length": LengthDistributionForOnePoint}
-            DataPointsResult.append(dataPoint)
-            print("score" + str(i) + "done")
-        return S, DataPointsResult, cn
+    # def compute_paths(self, X_in=None):
+    #     """
+    #     compute_paths(X_in = None)
+    #     Compute anomaly scores for all data points in a dataset X_in
+    #
+    #     Parameters
+    #     ----------
+    #     X_in : list of list of floats
+    #             Data to be scored. iForest.Trees are used for computing the depth reached in each tree by each data point.
+    #
+    #     Returns
+    #     -------
+    #     float
+    #         Anomaly score for a given data point.
+    #     """
+    #     if X_in is None:
+    #         X_in = self.X
+    #     S = np.zeros(len(X_in))
+    #
+    #     #A list to be returned, used to contain path length distribution
+    #     DataPointsResult = []
+    #
+    #     for i in range(len(X_in)):
+    #         LengthDistributionForOnePoint = []
+    #         h_temp = 0
+    #         for j in range(self.ntrees):
+    #             lengthForATree = PathFactor(X_in[i], self.Trees[j]).path * 1.0  # Compute path length for each point
+    #             LengthDistributionForOnePoint.append(lengthForATree)
+    #             h_temp += lengthForATree
+    #         Eh = h_temp / self.ntrees  # Average of path length travelled by the point in all trees.
+    #         cn = self.c
+    #         normalised_mean = Eh / cn
+    #         score = 2.0 ** (-normalised_mean)  # Anomaly Score
+    #         S[i] = score
+    #
+    #         dataPoint = {"list_num": i,"score": score,"length": LengthDistributionForOnePoint}
+    #         DataPointsResult.append(dataPoint)
+    #         print("score" + str(i) + "done")
+    #     return S, DataPointsResult
 
     def compute_paths_with_labeled_input(self, X_in=None):
         """
@@ -165,49 +190,68 @@ class iForest(object):
             X_in = self.X
         S = np.zeros(len(X_in))
 
-        #A list to be returned, used to contain path length distribution
+        # A list to be returned, used to contain path length distribution
         DataPointsResult = []
+        # Label must be at the last column
         raw_datas_without_label = X_in[:, :-1]
+
         for i in range(len(raw_datas_without_label)):
             LengthDistributionForOnePoint = []
             h_temp = 0
             for j in range(self.ntrees):
-                lengthForATree = PathFactor(raw_datas_without_label[i], self.Trees[j]).path * 1.0  # Compute path length for each point
+                lengthForATree = PathFactor(raw_datas_without_label[i],
+                                            self.Trees[j]).path * 1.0  # Compute path length for each point
                 LengthDistributionForOnePoint.append(lengthForATree)
                 h_temp += lengthForATree
             Eh = h_temp / self.ntrees  # Average of path length travelled by the point in all trees.
             score = 2.0 ** (-Eh / self.c)  # Anomaly Score
             S[i] = score
             # 第一位是编号
-            dataPoint = {"list_num": i,"score": score,"length": LengthDistributionForOnePoint,"label":int(X_in[i][-1])}
+            dataPoint = {"list_num": i, "score": score, "length": LengthDistributionForOnePoint,
+                         "label": int(X_in[i][-1])}
             DataPointsResult.append(dataPoint)
             print("score" + str(i) + "done")
         return S, DataPointsResult
 
+    def compute_score_with_labeled_input(self, X_in=None):
+        """
+        compute_paths_with_labeled_input(X_in = None)
+        Compute anomaly scores for all data points in a dataset X_in
 
-    # def get_length_each_data(self, X_in=None):
-    #     """
-    #     TBC
-    #     Parameters
-    #     ----------
-    #
-    #     Returns
-    #     -------
-    #
-    #     """
-    #     #确保传入数据集不是空指针,否则用训练集代替
-    #     if X_in is None:
-    #         X_in = self.X
-    #
-    #     #
-    #     for i in range(len(X_in)):
-    #         h_temp = 0
-    #         for j in range(self.ntrees):
-    #             h_temp += PathFactor(X_in[i], self.Trees[j]).path * 1.0
-    #         Eh = h_temp / self.ntrees
-    #         S[i] = 2.0 ** (-Eh / self.c)
-    #     return
+        Parameters
+        ----------
+        X_in : list of list of floats
+                Data to be scored. iForest.Trees are used for computing the depth reached in each tree by each data point.
 
+        Returns
+        -------
+        float
+            Anomaly score for a given data point.
+        """
+        if X_in is None:
+            X_in = self.X
+
+        # A list to be returned, used to contain path length distribution
+        DataPointsResult = pd.DataFrame(columns=["list_num","score","label"])
+        # print("Print Empty Result")
+        # print(DataPointsResult)
+
+        # Label must be at the last column
+        raw_datas_without_label = X_in[:, :-1]
+
+        for i in range(len(raw_datas_without_label)):
+            h_temp = 0
+            for j in range(self.ntrees):
+                lengthForATree = PathFactor(raw_datas_without_label[i], self.Trees[j]).path * 1.0  # Compute path length for each point
+                h_temp += lengthForATree
+            Eh = h_temp / self.ntrees  # Average of path length travelled by the point in all trees.
+            score = 2.0 ** (-Eh / self.c)  # Anomaly Score
+
+            dataPoint_pd = pd.DataFrame({"list_num": [i], "score": [score], "label": [int(X_in[i][-1])]})
+            DataPointsResult = pd.concat([DataPointsResult, dataPoint_pd], axis=0)
+            # DataPointsResult.append(dataPoint_pd)
+            print("score" + str(i) + "done")
+        return DataPointsResult.reset_index(drop=True)
 
 class Node(object):
     """

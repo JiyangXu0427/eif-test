@@ -8,10 +8,7 @@ import os
 import sklearn.metrics as skm
 from sklearn.preprocessing import KBinsDiscretizer
 
-
-filenames = ["annthyroid","cardio","ionosphere","satellite","shuttle","thyroid"]
-# filenames = ["cardio"]
-for filename in filenames:
+def kbin_discre(filename, n_bin):
     data = sio.loadmat('./datasets/' + filename + '.mat')
     pd_x = pd.DataFrame(data["X"])
     pd_y = pd.DataFrame(data["y"])
@@ -20,7 +17,7 @@ for filename in filenames:
     np_x_discretized = np_x
     print(filename)
 
-    enc = KBinsDiscretizer(n_bins=10, encode='ordinal',strategy="kmeans")
+    enc = KBinsDiscretizer(n_bins=n_bin, encode='ordinal',strategy="kmeans")
 
     if filename == "cardio":
         # continuous_feature = [1,2,3,4,5,7,8,9,10,11,12,13,14,15,17,18,19,20]
@@ -36,10 +33,17 @@ for filename in filenames:
         np_x_discretized = enc.fit_transform(np_x)
 
     pd_x_disc = pd.DataFrame(np_x_discretized)
-    pd_x_disc.to_csv("./datasets/" + filename + "_discretized_KBIN_withoutLabel.csv", index=False)
+    pd_x_disc.to_csv("./datasets/" + filename + "_discretized_"+str(n_bin) +"BIN_withoutLabel.csv", index=False)
     pd_x_disc["label"] = pd_y
-    pd_x_disc.to_csv("./datasets/"+filename+"_discretized_KBIN_withLabel.csv",index=False)
+    pd_x_disc.to_csv("./datasets/"+filename+"_discretized_"+str(n_bin) +"BIN_withLabel.csv",index=False)
 
+
+filenames = ["annthyroid","cardio","ionosphere","satellite","shuttle","thyroid"]
+n_bins = [10,15]
+# filenames = ["cardio"]
+for n_bin in n_bins:
+    for filename in filenames:
+        kbin_discre(filename,n_bin)
 
 ########################################################
 # from MDLP import MDLP_Discretizer

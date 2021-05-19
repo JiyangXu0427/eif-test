@@ -13,7 +13,7 @@ import os
 import sklearn.metrics as skm
 
 
-def testEIF_Scoring_data(filename, Copula=False):
+def testEIF_Scoring_data(filename, number_of_trees, subsample_size, extensionLevel , Copula=False):
 
     # read data from file
     if Copula == False:
@@ -31,15 +31,21 @@ def testEIF_Scoring_data(filename, Copula=False):
     # print(raw_datas[0])
     # print(raw_datas_without_label[0])
 
-    #parameter for traing the forest
-    number_of_trees = 1000
-    subsample_size = 1024
+    if subsample_size == "half":
+        subsample_size = int(len(raw_datas_without_label) / 2)
+
     if subsample_size > int(len(raw_datas_without_label) / 2) :
         subsample_size = int(len(raw_datas_without_label) / 2)
-    # subsample_size = int(len(raw_datas_without_label) / 2)
+
+
+
+    if extensionLevel == "full":
+        extd_level_in_filename = extensionLevel
+        extensionLevel = raw_datas_without_label.shape[1] - 1
+    else:
+        extd_level_in_filename = str(extensionLevel)
 
     # traing the forest
-    extensionLevel = raw_datas_without_label.shape[1] - 1
     F1 = eif_old_class.iForest(raw_datas_without_label, ntrees=number_of_trees, sample_size=subsample_size,
                                ExtensionLevel=extensionLevel)
 
@@ -83,9 +89,9 @@ def testEIF_Scoring_data(filename, Copula=False):
     # print(type(DataPointsResult))
 
     if Copula == False:
-        result_data_path = "./plots/" + filename + "_Classification_Result_Data_Org-"+ str(number_of_trees) + "-" + str(subsample_size) +".xlsx"
+        result_data_path = "./plots/" + filename + "_Classification_Result_Data_Org-"+ str(number_of_trees) + "-" + str(subsample_size) + "-" + extd_level_in_filename + ".xlsx"
     else:
-        result_data_path = "./plots/" + filename + "_Classification_Result_Data_Copula-"+ str(number_of_trees) + "-" + str(subsample_size) +".xlsx"
+        result_data_path = "./plots/" + filename + "_Classification_Result_Data_Copula-"+ str(number_of_trees) + "-" + str(subsample_size) + "-" + extd_level_in_filename +".xlsx"
 
     DataPointsResult.to_excel(result_data_path)
     # print(DataPointsResult)
@@ -102,6 +108,8 @@ def testEIF_Scoring_data(filename, Copula=False):
             opened_file.write("Number of Trees: " + str(number_of_trees))
             opened_file.write("\n")
             opened_file.write("Subsample Size: " + str(subsample_size))
+            opened_file.write("\n")
+            opened_file.write("Extend Level: " + extd_level_in_filename)
             opened_file.write("\n")
             opened_file.write("\n")
             opened_file.write("Below are original data result")
@@ -151,48 +159,33 @@ def testEIF_Scoring_data(filename, Copula=False):
         opened_file.write("\n")
         opened_file.write("\n")
 
-        # # Accuracy = (true positive + true negative)/(All positive + All Negative)
-        # Accuracy = (TP_Count+TN_Count)/(TP_Count+TN_Count+FN_Count+FP_Count)
-        # print("Overall Accuracy: " + str(Accuracy))
-        # opened_file.write(result_value)
-        # opened_file.write("\n")
-        #
-        # # Precision = (true positive)/(true + false positive)
-        # Precision = (TP_Count)/(TP_Count+FP_Count)
-        # print("Overall Precision: " + str(Precision))
-        # opened_file.write(result_value)
-        # opened_file.write("\n")
-        #
-        # # Recall = (true positive)/(true positive + false negative)
-        # Recall = (TP_Count)/(TP_Count+FN_Count)
-        # print("Overall Recall: " + str(Recall))
-        # opened_file.write(result_value)
-        # opened_file.write("\n")
-        #
-        # # F1 = 2*Precision*Recall/(Precision + Recall)
-        # F1_score = (2*Precision*Recall) / (Precision + Recall)
-        # print("Overall F1 score: " + str(F1_score))
-        # opened_file.write(result_value)
-        # opened_file.write("\n")
         fpr, tpr, thresholds = skm.roc_curve(y_test, y_score, pos_label=1)
-        return fpr, tpr, number_of_trees, subsample_size
+        return fpr, tpr, subsample_size
 
 
-# file_name_input = "annthyroid"
-# file_name_input = "cardio"
-# file_name_input = "covtype"
-# file_name_input = "ionosphere"
-# file_name_input = "mnist"
-# file_name_input = "satellite"
-# file_name_input = "shuttle"
-# file_name_input = "thyroid"
-file_name_input = ["annthyroid","cardio","ionosphere","satellite","shuttle","thyroid"]
-# file_name_input = ["ionosphere","satellite","shuttle","thyroid"]
+# filename = "annthyroid"
+# filename = "cardio"
+# filename = "covtype"
+# filename = "ionosphere"
+# filename = "mnist"
+# filename = "satellite"
+# filename = "shuttle"
+# filename = "thyroid"
+# filenames = ["annthyroid","cardio","ionosphere","satellite","shuttle","thyroid"]
+# filenames = ["ionosphere","satellite","shuttle","thyroid"]
+# filenames = ["annthyroid","cardio","satellite","shuttle","thyroid"]
+# filenames = ["cardio","thyroid"]
+# filenames = ["shuttle"]
+# filenames = ["satellite"]
+filenames = ["ionosphere"]
+# parameter for traing the forest
+number_of_trees = 100
+subsample_size = 256
+extensionLevel = 1
 
-
-for filename in file_name_input:
-    fpr_org, tpr_org, number_of_trees_org, subsample_size_org  = testEIF_Scoring_data(filename, Copula=False)
-    fpr_copula, tpr_copula, number_of_trees, subsample_size = testEIF_Scoring_data(filename, Copula=True)
+for filename in filenames:
+    fpr_org, tpr_org, subsample_size_org  = testEIF_Scoring_data(filename, number_of_trees, subsample_size, extensionLevel, Copula=False)
+    fpr_copula, tpr_copula, subsample_size_copula = testEIF_Scoring_data(filename, number_of_trees, subsample_size, extensionLevel, Copula=True)
     fig, ax = plt.subplots()
     ax.plot(fpr_org, tpr_org, label="origin")
     ax.plot(fpr_copula, tpr_copula, label="copula")
@@ -200,6 +193,9 @@ for filename in file_name_input:
     ax.set_ylabel('TPR')
     ax.set_title("ROC Curve")
     ax.legend()
-    plot_path = "./plots/" + filename + "_ROC_Curve" + str(number_of_trees) + "-" + str(subsample_size) +".jpg"
+    if extensionLevel != "full":
+        extensionLevel = str(extensionLevel)
+    plot_path = "./plots/" + filename + "_ROC_Curve" + str(number_of_trees) + "-" + str(subsample_size_copula) + "-" + extensionLevel +".jpg"
     fig.savefig(plot_path)
     plt.close(fig)
+    extensionLevel = int(extensionLevel)

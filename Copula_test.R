@@ -71,8 +71,8 @@ while(counter <= ncol(x_values)) {
     }
   }
 
-  numbers_of_CDF_points <- length(column_value) * 10
-  #numbers_of_CDF_points <- 4
+  #numbers_of_CDF_points <- length(column_value) * 10
+  numbers_of_CDF_points <- 1000
   x.CDF <- kCDF(column_value,ngrid = numbers_of_CDF_points)
   cdf_fhat <- x.CDF$Fhat
   cdf_y_results_list <- c(cdf_y_results_list, cdf_fhat)

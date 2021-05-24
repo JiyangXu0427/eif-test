@@ -12,7 +12,8 @@ import scipy.io as sio
 # dataset_name = "shuttle"
 # dataset_name = "thyroid"
 
-dataset_names = ["annthyroid", "cardio","satellite","shuttle","thyroid"]
+# dataset_names = ["annthyroid", "cardio", "foresttype", "ionosphere","mammography" ,"satellite", "shuttle", "thyroid"]
+dataset_names =["mammography"]
 adjust_values = [0.0625, 0.25, 4, 16, 1]
 for adjust_value in adjust_values:
     for dataset_name in dataset_names:

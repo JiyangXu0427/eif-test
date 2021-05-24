@@ -105,7 +105,7 @@ def testEIF_Scoring_data(filename, number_of_trees, subsample_size, extensionLev
         opened_file.write(report)
         opened_file.write("\n")
 
-        result_value = skm.roc_auc_score(y_test, y_predict)
+        result_value = skm.roc_auc_score(y_test, y_score)
         print("ROC_AUC_Score: " + str(result_value))
         opened_file.write("ROC_AUC_Score: " + str(result_value))
         opened_file.write("\n")

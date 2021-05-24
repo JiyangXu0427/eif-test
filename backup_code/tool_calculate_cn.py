@@ -16,7 +16,7 @@ import scipy.io as sio
 # data = sio.loadmat('./datasets/mnist.mat')
 # data = sio.loadmat('./datasets/satellite.mat')
 # data = sio.loadmat('./datasets/shuttle.mat')
-data = sio.loadmat('./datasets/thyroid.mat')
+data = sio.loadmat('../datasets/thyroid.mat')
 
 
 x_data = np.array(data["X"])

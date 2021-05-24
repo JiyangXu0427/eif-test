@@ -210,7 +210,7 @@ class iForest(object):
             dataPoint = {"list_num": i, "score": score, "length": LengthDistributionForOnePoint,
                          "label": int(X_in[i][-1])}
             DataPointsResult.append(dataPoint)
-            print("score" + str(i) + "done")
+            # print("score" + str(i) + "done")
         return S, DataPointsResult
 
     def compute_score_with_labeled_input(self, X_in=None):
@@ -250,7 +250,7 @@ class iForest(object):
             dataPoint_pd = pd.DataFrame({"list_num": [i], "score": [score], "label": [int(X_in[i][-1])]})
             DataPointsResult = pd.concat([DataPointsResult, dataPoint_pd], axis=0)
             # DataPointsResult.append(dataPoint_pd)
-            print("score" + str(i) + "done")
+            # print("score" + str(i) + "done")
         return DataPointsResult.reset_index(drop=True)
 
 class Node(object):

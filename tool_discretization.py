@@ -38,7 +38,8 @@ def kbin_discre(filename, n_bin):
     pd_x_disc.to_csv("./datasets/"+filename+"_discretized_"+str(n_bin) +"BIN_withLabel.csv",index=False)
 
 
-filenames = ["annthyroid","cardio","ionosphere","satellite","shuttle","thyroid"]
+# filenames = ["annthyroid", "cardio", "foresttype", "ionosphere","mammography" ,"satellite", "shuttle", "thyroid"]
+filenames = ["mammography"]
 n_bins = [10,15]
 # filenames = ["cardio"]
 for n_bin in n_bins:

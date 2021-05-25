@@ -14,11 +14,11 @@ import sklearn.metrics as skm
 
 
 def draw_Recall_from_EIF_result(filename, number_of_trees, subsample_size, extensionLevel, dataset_type):
-    path = './plots/EIF_Result/' + filename + "_EIF_Result_Data_" + dataset_type + "-" + str(
+    path = './EIF_SIF_Result/EIF_Result/' + filename + "_EIF_Result_Data_" + dataset_type + "-" + str(
         number_of_trees) + "-" + str(subsample_size) + "-" + str(extensionLevel) + ".xlsx"
     pd_data = pd.read_excel(path, index_col=0)
     # print(pd_data.loc[:, "label"])
-    pd_data_sorted = pd_data.sort_values(by="score", ascending=False)
+    pd_data_sorted = pd_data.sort_values(by="score", ascending=False).reset_index(drop=True)
     pd_label = pd_data_sorted.loc[:, "label"]
     # print(pd_label)
     np_label = np.array(pd_label)
@@ -32,11 +32,11 @@ def draw_Recall_from_EIF_result(filename, number_of_trees, subsample_size, exten
     return cumulative_recall
 
 def draw_Recall_from_SIF_result(filename, number_of_trees, subsample_size, extensionLevel, dataset_type):
-    path = './plots/SIF_Result/' + filename + "_SIF_Result_Data_" + dataset_type + "-" + str(
+    path = './EIF_SIF_Result/SIF_Result/' + filename + "_SIF_Result_Data_" + dataset_type + "-" + str(
         number_of_trees) + "-" + str(subsample_size) + "-" + str(extensionLevel) + ".xlsx"
     pd_data = pd.read_excel(path, index_col=0)
     # print(pd_data.loc[:, "label"])
-    pd_data_sorted = pd_data.sort_values(by="score", ascending=False)
+    pd_data_sorted = pd_data.sort_values(by="score", ascending=False).reset_index(drop=True)
     pd_label = pd_data_sorted.loc[:, "label"]
     # print(pd_label)
     np_label = np.array(pd_label)

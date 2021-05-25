@@ -16,7 +16,7 @@ import sklearn.metrics as skm
 def draw_Recall_from_result(filename, number_of_trees, subsample_size, extensionLevel, dataset_type, algo_type):
 
     if algo_type == "SIF":
-        path = './plots/SIF_Result/' + filename + "_SIF_Result_Data_" + dataset_type + "-" + str(
+        path = './EIF_SIF_Result/SIF_Result/' + filename + "_SIF_Result_Data_" + dataset_type + "-" + str(
             number_of_trees) + "-" + str(subsample_size) + "-" + str(extensionLevel) + ".xlsx"
         pd_data = pd.read_excel(path, index_col=0)
         sorting_ascend = False
@@ -30,7 +30,7 @@ def draw_Recall_from_result(filename, number_of_trees, subsample_size, extension
 
 
     # print(pd_data.loc[:, "label"])
-    pd_data_sorted = pd_data.sort_values(by="score", ascending=sorting_ascend)
+    pd_data_sorted = pd_data.sort_values(by="score", ascending=sorting_ascend).reset_index(drop=True)
     pd_label = pd_data_sorted.loc[:, "label"]
     # print(pd_label)
     np_label = np.array(pd_label)

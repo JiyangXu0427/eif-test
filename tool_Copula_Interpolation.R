@@ -14,12 +14,13 @@ library(R.matlab);
     #adjust_value <- 1
     #adjust_value <- 0.25
     #adjust_value <- 0.0625
-
+#"foresttype"
 #filenames <- c("annthyroid", "cardio", "ionosphere", "mammography", "satellite", "shuttle", "thyroid")
-filenames <- c("foresttype")
+filenames <- c("smtp","satimage-2","pendigits","speech")
 adjust_values <- c(0.0625,0.25, 4, 16, 1)
 #adjust_values <- c(0.0625)
 for (adjust_value in adjust_values) {
+
   for (filename in filenames) {
 
     #kcdf parameter

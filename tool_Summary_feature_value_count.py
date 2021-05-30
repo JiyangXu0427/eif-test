@@ -14,7 +14,8 @@ import sklearn.metrics as skm
 
 
 
-filenames = ["annthyroid", "cardio", "foresttype", "ionosphere","mammography" ,"mnist", "satellite", "shuttle", "thyroid"]
+filenames = ["annthyroid", "cardio", "foresttype", "http","ionosphere","mammography" ,"mnist", "optdigits","pendigits","satellite","satimage-2", "shuttle","smtp_v7","speech", "thyroid"]
+
 result_summary_path = "./datasets/Feature_Value_Counts_Summary.txt"
 with open(result_summary_path, 'a') as opened_file:
     for filename in filenames:

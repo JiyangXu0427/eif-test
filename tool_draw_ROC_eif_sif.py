@@ -14,7 +14,7 @@ import sklearn.metrics as skm
 
 
 def draw_roc_from_EIF_result(filename, number_of_trees, subsample_size, extensionLevel, dataset_type):
-    path = './plots/EIF_Result/' + filename + "_EIF_Result_Data_" + dataset_type + "-" + str(
+    path = './EIF_SIF_Result/EIF_Result/' + filename + "_EIF_Result_Data_" + dataset_type + "-" + str(
         number_of_trees) + "-" + str(subsample_size) + "-" + str(extensionLevel) + ".xlsx"
     pd_data = pd.read_excel(path, index_col=0)
     y_test = np.array(pd_data.loc[:, "label"], dtype="int32")
@@ -25,7 +25,7 @@ def draw_roc_from_EIF_result(filename, number_of_trees, subsample_size, extensio
 
 
 def draw_roc_from_SIF_result(filename, number_of_trees, subsample_size, extensionLevel, dataset_type):
-    path = './plots/SIF_Result/' + filename + "_SIF_Result_Data_" + dataset_type + "-" + str(
+    path = './EIF_SIF_Result/SIF_Result/' + filename + "_SIF_Result_Data_" + dataset_type + "-" + str(
         number_of_trees) + "-" + str(subsample_size) + "-" + str(0) + ".xlsx"
     pd_data = pd.read_excel(path, index_col=0)
     y_test = np.array(pd_data.loc[:, "label"], dtype="int32")
@@ -37,8 +37,8 @@ def draw_roc_from_SIF_result(filename, number_of_trees, subsample_size, extensio
 
 # "mammography" ,
 # dataset_names = ["annthyroid", "cardio", "foresttype", "ionosphere", "mammography", "satellite", "shuttle", "thyroid"]
-dataset_names = ["annthyroid", "cardio",  "ionosphere","mammography" ,"satellite", "shuttle", "thyroid"]
-
+# dataset_names = ["annthyroid", "cardio",  "ionosphere","mammography" ,"satellite", "shuttle", "thyroid"]
+dataset_names = ["smtp","satimage-2","pendigits","speech"]
 dataset_types = ["origin", "copula_0.0625", "copula_0.25", "copula_1", "copula_4", "copula_16", "10BIN", "15BIN"]
 # parameter for traing the forest
 number_of_trees = 500

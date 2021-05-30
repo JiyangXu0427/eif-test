@@ -51,8 +51,8 @@ def draw_Recall_from_SIF_result(filename, number_of_trees, subsample_size, exten
 
 
 # dataset_names = ["annthyroid", "cardio", "foresttype", "ionosphere","mammography" ,"satellite", "shuttle", "thyroid"]
-dataset_names = ["annthyroid", "cardio",  "ionosphere","mammography" ,"satellite", "shuttle", "thyroid"]
-
+# dataset_names = ["annthyroid", "cardio",  "ionosphere","mammography" ,"satellite", "shuttle", "thyroid"]
+dataset_names = ["smtp","satimage-2","pendigits","speech"]
 dataset_types = ["origin", "copula_0.0625", "copula_0.25", "copula_1", "copula_4", "copula_16", "10BIN", "15BIN"]
 # parameter for traing the forest
 number_of_trees = 500

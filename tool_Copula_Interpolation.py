@@ -13,7 +13,7 @@ import scipy.io as sio
 # dataset_name = "thyroid"
 
 # dataset_names = ["annthyroid", "cardio", "foresttype", "ionosphere","mammography" ,"satellite", "shuttle", "thyroid"]
-dataset_names =["mammography"]
+dataset_names =["smtp","satimage-2","pendigits","speech"]
 adjust_values = [0.0625, 0.25, 4, 16, 1]
 for adjust_value in adjust_values:
     for dataset_name in dataset_names:
@@ -23,15 +23,12 @@ for adjust_value in adjust_values:
         x_data = np.array(data["X"])
         y_data = np.array(data["y"])
         dataset_total_col_num = x_data.shape[1]
-        print(dataset_total_col_num)
-
 
         file_path_cdf_x = dataset_folder_path + dataset_name + "-" + str(adjust_value) +"-CDF_points_x.csv"
         file_path_cdf_y = dataset_folder_path + dataset_name + "-" + str(adjust_value) + "-CDF_points_y.csv"
         cfd_training_datas_x = pd.read_csv(file_path_cdf_x,index_col=0)
         cfd_training_datas_y = pd.read_csv(file_path_cdf_y,index_col=0)
         training_data_total_col_num = cfd_training_datas_x.shape[1]
-        print(training_data_total_col_num)
 
         counter = 0
         copula_data_index = 0
@@ -53,8 +50,6 @@ for adjust_value in adjust_values:
                     counter = counter + 1
                     continue
 
-            print(counter)
-            print(copula_data_index)
             selected_column_x = cfd_training_datas_x.iloc[:,copula_data_index]
             selected_column_x = np.array(selected_column_x)
 

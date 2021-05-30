@@ -39,7 +39,7 @@ def kbin_discre(filename, n_bin):
 
 
 # filenames = ["annthyroid", "cardio", "foresttype", "ionosphere","mammography" ,"satellite", "shuttle", "thyroid"]
-filenames = ["mammography"]
+filenames  =["smtp","satimage-2","pendigits","speech"]
 n_bins = [10,15]
 # filenames = ["cardio"]
 for n_bin in n_bins:

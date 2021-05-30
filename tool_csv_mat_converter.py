@@ -10,7 +10,7 @@ import sklearn.metrics as skm
 
 
 # filenames = ["annthyroid", "cardio", "foresttype", "ionosphere","mammography" ,"satellite", "shuttle", "thyroid"]
-filenames = ["mammography"]
+filenames = ["smtp","satimage-2","pendigits","speech"]
 for filename in filenames:
     data = sio.loadmat('./datasets/' + filename + '.mat')
     pd_x = pd.DataFrame(data["X"])

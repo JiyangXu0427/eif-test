@@ -47,8 +47,8 @@ def draw_Recall_from_result(filename, number_of_trees, subsample_size, extension
 
 
 # dataset_names = ["annthyroid", "cardio", "foresttype", "ionosphere","mammography" ,"satellite", "shuttle", "thyroid"]
-dataset_names = ["annthyroid", "cardio",  "ionosphere","mammography" ,"satellite", "shuttle", "thyroid"]
-
+# dataset_names = ["annthyroid", "cardio",  "ionosphere","mammography" ,"satellite", "shuttle", "thyroid"]
+dataset_names = ["smtp","satimage-2","pendigits","speech"]
 dataset_types = ["10BIN", "15BIN"]
 algo_types = ["SIF", "log_pseudolikelihood", "ordered_log_prob"]
 # parameter for traing the forest

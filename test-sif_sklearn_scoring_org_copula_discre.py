@@ -211,7 +211,7 @@ def testSIF_Scoring_data(filename, number_of_trees, subsample_size, extensionLev
     return fpr, tpr, precision, recall, subsample_size_used
 
 # dataset_names = ["annthyroid", "cardio", "foresttype", "ionosphere","mammography" ,"satellite", "shuttle", "thyroid"]
-dataset_names = ["annthyroid", "cardio",  "ionosphere","mammography" ,"satellite", "shuttle", "thyroid"]
+dataset_names = ["smtp","satimage-2","pendigits","speech"]
 
 dataset_types = ["origin", "copula_0.0625", "copula_0.25", "copula_1", "copula_4", "copula_16", "10BIN", "15BIN"]
 # dataset_names = ["mammography" ]

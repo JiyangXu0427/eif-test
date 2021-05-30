@@ -15,7 +15,7 @@ import sklearn.metrics as skm
 
 def draw_ROC(filename, number_of_trees, subsample_size, extensionLevel, dataset_type, algo_type):
     if algo_type == "SIF":
-        path = './plots/SIF_Result/' + filename + "_SIF_Result_Data_" + dataset_type + "-" + str(
+        path = './EIF_SIF_Result/SIF_Result/' + filename + "_SIF_Result_Data_" + dataset_type + "-" + str(
             number_of_trees) + "-" + str(subsample_size) + "-" + str(extensionLevel) + ".xlsx"
         pd_data = pd.read_excel(path, index_col=0)
 
@@ -38,7 +38,9 @@ def draw_ROC(filename, number_of_trees, subsample_size, extensionLevel, dataset_
 
 
 # dataset_names = ["annthyroid", "cardio", "foresttype", "ionosphere", "mammography", "satellite", "shuttle", "thyroid"]
-dataset_names = ["annthyroid", "cardio",  "ionosphere","mammography" ,"satellite", "shuttle", "thyroid"]
+# dataset_names = ["annthyroid", "cardio",  "ionosphere","mammography" ,"satellite", "shuttle", "thyroid"]
+
+dataset_names = ["smtp","satimage-2","pendigits","speech"]
 dataset_types = ["10BIN", "15BIN"]
 algo_types = ["SIF", "log_pseudolikelihood", "ordered_log_prob"]
 # parameter for traing the forest
